@@ -1,6 +1,6 @@
 node_modules/
 backend/node_modules/
 frontend/web/node_modules/
-backend/package-lock.json
-frontend/web/package-lock.json
-package-lock.json*
+
+backend/.env
+frontend/web/.env
