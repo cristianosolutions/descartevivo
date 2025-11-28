@@ -10,3 +10,8 @@ const pool = new Pool({
 });
 
 module.exports = pool;
+
+
+/*DATABASE_URL=postgresql://postgres:QjVkuYaPKgTbGlrgJQvYIbKVsyPyRwBV@nozomi.proxy.rlwy.net:25772/railway
+JWT_SECRET=segredo_dev
+PORT=3001*/

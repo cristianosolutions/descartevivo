@@ -1,6 +1,8 @@
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthProvider, AuthContext } from "./context/AuthContext";
+
 
 import PointsPage from './pages/PointsPage';
 import DeliveriesPage from './pages/DeliveriesPage';
@@ -29,17 +31,35 @@ function AppContent() {
         {/* NAVBAR SEMPRE VISÍVEL */}
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
           <div className="container-fluid">
-            <Link className="navbar-brand" to="/">DescarteVivo</Link>
+
+            <Link className="navbar-brand fw-bold text-white" to="/dashboard">
+              DescarteVivo
+            </Link>
+
+            {/* BOTÃO HAMBURGUER NO MOBILE */}
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
 
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav me-auto">
                 {user && (
                   <>
                     <li className="nav-item"><Link className="nav-link" to="/dashboard">Dashboard</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/points">Pontos de Coleta</Link></li>
+                    {user?.role === "ADMIN" && (
+                      <li className="nav-item"><Link className="nav-link" to="/points">Pontos de Coleta</Link></li>
+                    )}
                     <li className="nav-item"><Link className="nav-link" to="/deliveries">Entregas</Link></li>
                     {user.role === "ADMIN" && (
-                      <li className="nave-item">
+                      <li className="nav-item">
                         <Link className="nav-link" to="/users">Usuários</Link>
                       </li>
                     )}
@@ -56,7 +76,7 @@ function AppContent() {
 
                 {user && (
                   <>
-                    < li className="nav-item d-flex align-items-center me-2 text-white">
+                    <li className="nav-item d-flex align-items-center me-2 text-white">
                       Olá, <strong className='ms-1'>{user.name}</strong>
                     </li>
                     <li className="nav-item">
@@ -69,13 +89,21 @@ function AppContent() {
           </div>
         </nav>
 
+
         {/* ROTAS */}
         <main className="container my-4 flex-grow-1">
           <Routes>
             <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-            <Route path="/points" element={<PrivateRoute><PointsPage /></PrivateRoute>} />
+            <Route
+              path="/points"
+              element={
+                <PrivateRoute>
+                  {user?.role === "ADMIN" ? <PointsPage /> : <Navigate to="/dashboard" />}
+                </PrivateRoute>
+              }
+            />
             <Route path="/deliveries" element={<PrivateRoute><DeliveriesPage /></PrivateRoute>} />
             <Route path="/users" element={<PrivateRoute><UsersPage /></PrivateRoute>} />
           </Routes>
