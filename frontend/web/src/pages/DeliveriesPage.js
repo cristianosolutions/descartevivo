@@ -48,7 +48,7 @@ function DeliveriesPage() {
       return alert('Escolha tipo e quantidade.');
     }
 
-    const selected = wasteTypes.find(w => w.id == form.waste_type_id);
+    const selected = wasteTypes.find(w => w.id === form.waste_type_id);
     if (!selected) {
       return alert('Tipo de resíduo inválido.');
     }

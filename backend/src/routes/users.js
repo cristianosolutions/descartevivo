@@ -90,14 +90,85 @@ router.post('/', async (req, res) => {
 // GET /api/users - listar usuários
 router.get('/', authMiddleware, async (req, res) => {
   try {
-    const result = await pool.query(
-      'SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC'
-    );
+    const result = await pool.query(`
+      SELECT 
+        u.id, 
+        u.name, 
+        u.email, 
+        u.role, 
+        u.created_at,
+        EXISTS (SELECT 1 FROM waste_deliveries wd WHERE wd.user_id = u.id) AS has_deliveries
+      FROM users u
+      ORDER BY u.created_at DESC
+    `);
+
     res.json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Erro ao listar usuários.' });
   }
 });
+
+
+// PUT /users/:id - atualizar usuário
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, address, birth_date, role } = req.body;
+
+    const checkUser = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    if (checkUser.rows.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    await pool.query(
+      `UPDATE users SET name=$1, email=$2, endereco_completo=$3, data_nascimento=$4, role=$5
+       WHERE id=$6`,
+      [name, email, address, birth_date, role, id]
+    );
+
+    return res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erro ao atualizar usuário.' });
+  }
+});
+
+// DELETE /users/:id - bloquear exclusão se houver entregas vinculadas
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Verifica se o usuário existe
+    const checkUser = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    if (checkUser.rows.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    // Verifica se existe entrega vinculada
+    const checkDeliveries = await pool.query(
+      'SELECT * FROM waste_deliveries WHERE user_id = $1',
+      [id]
+    );
+
+    if (checkDeliveries.rows.length > 0) {
+      return res.status(400).json({
+        message: "Não é possível excluir este usuário pois existem entregas vinculadas ao mesmo."
+      });
+    }
+
+    // Se não houver entrega, remove o usuário
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
+
+    return res.status(200).json({ message: 'Usuário removido com sucesso!' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao excluir usuário' });
+  }
+});
+
+
 
 module.exports = router;
