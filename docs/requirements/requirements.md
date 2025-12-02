@@ -1,34 +1,37 @@
-📘 Introdução
+## 📘 Introdução
 
-Este documento apresenta os requisitos funcionais, não funcionais e regras de negócio do sistema Descarte Vivo, solução digital que visa auxiliar o gerenciamento de reciclagem, pontos de coleta e entregas de resíduos, promovendo sustentabilidade e contribuindo com o ODS 11 – Cidades e Comunidades Sustentáveis.
+**Este documento apresenta os requisitos funcionais, não funcionais e regras de negócio do sistema Descarte Vivo, solução digital que visa auxiliar o gerenciamento de reciclagem, pontos de coleta e entregas de resíduos, promovendo sustentabilidade e contribuindo com o ODS 11 – Cidades e Comunidades Sustentáveis.**
 
 
-✅ Requisitos Funcionais (RF)
-Código	Requisito Funcional	
-RF01	O sistema deve permitir login e autenticação de usuários via JWT.	
-RF02	O sistema deve permitir cadastro de novos usuários.	
-RF03	O sistema deve permitir CRUD completo de usuários (listar, criar, editar e excluir) — somente para perfil ADMIN.	
-RF04	O sistema deve permitir o cadastro de pontos de coleta.	
-RF05	O sistema deve listar os pontos de coleta cadastrados.	
-RF06	O sistema deve permitir o registro de entregas com peso e tipo.	
-RF07	O sistema deve listar todas as entregas registradas.	
-RF08	O sistema deve disponibilizar um dashboard com totais agregados (peso, número de entregas).	
-RF09	O sistema deve permitir que cada usuário visualize seu histórico de entregas.	
-RF10	O sistema deve validar os campos antes de salvar dados, exibindo mensagens claras de erro.	
-RF11	O sistema deve registrar data e hora de criação dos registros.	
-RF12	O sistema deve permitir deploy e acesso remoto via navegador.	
-RF13	O sistema deve disponibilizar documentação oficial da API no repositório GitHub.	
-RF14	O sistema deve registrar validação real com público alvo e documentar seu feedback.	
+### ✅ Requisitos Funcionais (RF)
 
-🚫 Requisitos Não Funcionais (RNF)
-Código	Requisito Não Funcional	
-RNF01	O sistema deve utilizar segurança JWT e criptografia bcrypt para senhas.
-RNF02	O sistema deve retornar respostas API em até 2 segundos.
-RNF03	O sistema deve ser responsivo para desktop, tablet e mobile.
-RNF04	O sistema deve possuir arquitetura REST e repositório Git organizado.
-RNF05	O sistema deve ser atualizado e versionado utilizando GitHub.	
-RNF06	O deploy deve ser realizado em ambiente escalável (Railway / Vercel).
-RNF07	O banco de dados deve garantir integridade e consistência referencial.
-RNF08	O sistema deve registrar logs em caso de exceção e retornar mensagens amigáveis.	
-RNF09	A solução deve ser capaz de suportar crescimento futuro de usuários.
-RNF10	O sistema deve seguir padrões modernos de design de interface e boa usabilidade.	
+| **ID**   | **Requisito Funcional**                                  | **Status**     |
+| -------- | -------------------------------------------------------- | -------------- |
+| **RF01** | O sistema deve permitir login com autenticação JWT       | ✔ Implementado |
+| **RF02** | O sistema deve permitir CRUD de usuários                 | ✔ Implementado |
+| **RF03** | Administradores com acesso total ao sistema              | ✔ Implementado |
+| **RF04** | Usuários podem registrar entregas de resíduos            | ✔ Implementado |
+| **RF05** | O sistema deve calcular o total de peso entregue         | ✔ Implementado |
+| **RF06** | O sistema deve gerar relatórios em PDF                   | ❌Implementando|
+| **RF07** | O dashboard deve exibir métricas em tempo real           | ✔ Implementado |
+| **RF08** | Pesquisa e listagem de pontos de coleta                  | ✔ Implementado |
+| **RF09** | Edição e exclusão de pontos de coleta                    | ✔ Implementado |
+| **RF10** | Exclusão de usuários vinculados deve ser bloqueada       | ✔ Implementado |
+| **RF11** | O sistema deve validar dados obrigatórios em formulários | ✔ Implementado |
+| **RF12** | Exportação de dados para PDF e listagens                 | ❌Implementando|
+| **RF13** | Controle de itens e tipos de resíduos                    | ✔ Implementado |
+| **RF14** | Usuários comuns (MORADOR) com restrições de acesso       | ✔ Implementado |
+
+
+### 🛡 6. Requisitos Não Funcionais (RNF)
+
+| **ID**    | **Requisitos Não Funcionais**                  | **Status**   |
+| ----------|----------------------------------------------- | ------------ |
+| **RNF01** | A comunicação deve utilizar JSON               |       ✔      |
+| **RNF02** | Tempo máximo de resposta inferior a 3 segundos |       ✔      |
+| **RNF03** | Segurança aplicada com JWT e Hash Bcrypt       |       ✔      |
+| **RNF04** | Interface responsiva e compatível com mobile   |       ✔      |
+| **RNF05** | Deploy automatizado via CI/CD                  |       ✔      |
+| **RNF06** | Banco PostgreSQL hospedado em nuvem            |       ✔      |
+| **RNF07** | Logs de erros e proteção a falhas críticas     |       ✔      |
+| **RNF08** | HTTPS obrigatório em produção                  |       ✔      |
