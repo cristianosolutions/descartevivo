@@ -1,6 +1,6 @@
-📡 Documentação da API
+## 📡 Documentação da API
 
-Principais rotas:
+### Principais rotas:
 
 | Método | Rota               | Descrição               |
 | ------ | ------------------ | ----------------------- |
@@ -12,29 +12,32 @@ Principais rotas:
 | GET    | /dashboard         | Totais consolidados     |
 
 
-🔐 Autenticação
+### 🔐 Autenticação
 
 A API utiliza JWT (Bearer Token).
 Após o login, o token deve ser enviado em todas as requisições protegidas.
 
-📌 Header obrigatório
+**📌 Header obrigatório**
 
 Authorization: Bearer {TOKEN}
 Content-Type: application/json
 
-📦 Endpoints
+### 📦 Endpoints
 
-1️⃣ Autenticação
-POST /auth/login
+#### 1️⃣ Autenticação
+**POST /auth/login**
 Autentica usuário e gera token JWT.
 
-Request
+- Request
+```bash
 {
   "email": "admin@admin.com",
   "password": "admin123"
 }
+```
 
-Response
+- Response
+```bash
 {
   "message": "Login successful",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -45,6 +48,7 @@ Response
     "role": "ADMIN"
   }
 }
+```
 
 Erros
 
@@ -53,14 +57,15 @@ Erros
 | 401    | Unauthorized | Credenciais inválidas            |
 | 400    | Bad Request  | Campos obrigatórios não enviados |
 
-2️⃣ Usuários
-GET /users/
+#### 2️⃣ Usuários
+**GET /users/**
 
 Retorna lista de usuários (ADMIN only)
 Request header:
 Authorization: Bearer {token}
 
-Response
+- Response
+```bash
 [
   {
     "id": 1,
@@ -70,44 +75,53 @@ Response
     "created_at": "2025-11-28T22:15:10Z"
   }
 ]
+```
 
-POST /users/
+**POST /users/**
 
 Cria novo usuário
 
 Body
+```bash
 {
   "name": "João Silva",
   "email": "joao@email.com",
   "password": "123456",
   "role": "USER"
 }
+```
 
 Response
+```bash
 {
   "message": "Usuário criado com sucesso"
 }
+```
 
-PUT /users/:id (implementação via inerfece não concluído, só via banco)
+**PUT /users/:id**
 
 Atualiza usuário
+```bash
 {
   "name": "João da Silva",
   "role": "ADMIN"
 }
+```
 
-DELETE /users/:id (implementação via interface não concluída)
+**DELETE /users/:id**
 
 Remove usuário
-
+```bash
 {
   "message": "Usuário removido"
 }
+```
 
-3️⃣ Pontos de Coleta
-GET /collection-points/
+#### 3️⃣ Pontos de Coleta
+**GET /collection-points/**
 
 Lista pontos de coleta
+```bash
 [
   {
     "id": 1,
@@ -116,27 +130,31 @@ Lista pontos de coleta
     "type": "Plástico"
   }
 ]
+```
 
-POST /collection-points/
+**POST /collection-points/**
+```bash
 {
   "name": "Ponto Sul",
   "address": "Rua F, 500",
   "type": "Vidro"
 }
+```
 
 DELETE /collection-points/:id (Implementação via interface não concluída, só via banco)
 
 Remove um ponto
 
-4️⃣ Tipos de Resíduos
-GET /waste-types/
+#### 4️⃣ Tipos de Resíduos
+**GET /waste-types/**
 
 Lista tipos por kg
 
-5️⃣ Entregas
-GET /deliveries/
+#### 5️⃣ Entregas
+**GET /deliveries/**
 
 Lista entregas registradas
+```bash
 [
   {
     "id": 4,
@@ -147,8 +165,10 @@ Lista entregas registradas
     "total_value": 10.00
   }
 ]
+```
 
-POST /deliveries/
+**POST /deliveries/**
+```bash
 {
   "user_id": 3,
   "point_id": 1,
@@ -156,17 +176,19 @@ POST /deliveries/
   "waste_type": "Vidro",
   "price_per_kg": 0.40
 }
+```
 
-6️⃣ Dashboard
-GET /dashboard/
+#### 6️⃣ Dashboard
+**GET /dashboard/**
 
 Retorna totais consolidados
+```bash
 {
   "totalDeliveries": 50,
   "totalWeightKg": 214.4,
   "totalValue": 180.30
 }
-
+```
 
 ⚠ Códigos de Erro
 
@@ -179,15 +201,17 @@ Retorna totais consolidados
 | 500    | Erro interno             |
 
 
-🧪 Testes pelo Postman
+### 🧪 Testes pelo Postman
 
 Variáveis de ambiente recomendada
+```bash
 {
   "url": "http://localhost:3001",
   "token": ""
 }
+```
 
-🧱 Modelo do Banco de Dados (Resumo)
+### 🧱 Modelo do Banco de Dados (Resumo)
 
 | Tabela               | Campos principais                                                |
 | ---------------------| ---------------------------------------------------------------- |

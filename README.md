@@ -76,10 +76,10 @@ Senha: 123456
 Projeto Aplicado Multiplataforma Etapa 2 (N708)
 
 ## 👨‍💻 Equipe de Desenvolvimento
-Cristiano Magno 
-Raphaela Vidal
-Amanda Ferreira
-Daví Gaspar
-Ítalo Bruno
-Samara patrício
+- **Cristiano Magno**
+- **Raphaela Vidal**
+- **Amanda Ferreira**
+- **Daví Gaspar**
+- **Ítalo Bruno**
+- **Samara patrício**
 
