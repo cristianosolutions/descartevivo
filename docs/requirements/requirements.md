@@ -22,10 +22,11 @@
 | **RF13** | Controle de itens e tipos de resíduos                    | ✔ Implementado |
 | **RF14** | Usuários comuns (MORADOR) com restrições de acesso       | ✔ Implementado |
 
+<br>
 
-### 🛡 6. Requisitos Não Funcionais (RNF)
+### 🛡 Requisitos Não Funcionais (RNF)
 
-| **ID**    | **Requisitos Não Funcionais**                  | **Status**   |
+| **ID**    | **Descrição**                                  | **Status**   |
 | ----------|----------------------------------------------- | ------------ |
 | **RNF01** | A comunicação deve utilizar JSON               |       ✔      |
 | **RNF02** | Tempo máximo de resposta inferior a 3 segundos |       ✔      |
@@ -35,3 +36,22 @@
 | **RNF06** | Banco PostgreSQL hospedado em nuvem            |       ✔      |
 | **RNF07** | Logs de erros e proteção a falhas críticas     |       ✔      |
 | **RNF08** | HTTPS obrigatório em produção                  |       ✔      |
+
+<br>
+
+### 🧠 Regras de Negócio (RN)
+
+| **ID**  | **Descrição**                                                      | **Status** |
+| --------|--------------------------------------------------------------------| -----------|
+| **RN01**| Somente admins podem altera e excluir usuários e pontos de coleta  |     ✔      |
+| **RN02**| Usuário não pode ser excluído se possuir entregas registradas      |     ✔      |
+| **RN03**| Pesos de materiais devem ser positivos (> 0)                       |     ✔      |
+| **RN04**| E-mail de usuário deve ser único e validado                        |     ✔      |
+| **RN05**| Somente usuários autenticados acessam funcionalidades do dashboard |     ✔      |
+| **RN06**| Todas operações são registradas com timestamp                      |     ✔      |
+
+
+
+
+
+
